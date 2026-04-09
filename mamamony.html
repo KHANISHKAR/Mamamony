@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mamamony 💍 — Trust the Pookies</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FFD1DC;
+    --rose: #F4A7BB;
+    --deep-rose: #C75B87;
+    --blush: #FFF0F4;
+    --cream: #FFFAF8;
+    --text: #3A1A2A;
+    --muted: #9B5E74;
+    --white: #FFFFFF;
+    --gold: #F5A623;
+    --platinum: #B0B8C8;
+    --diamond: #A8D8EA;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED BG BLOBS */
+  .bg-blob {
+    position: fixed; border-radius: 50%; filter: blur(80px);
+    pointer-events: none; z-index: 0; opacity: 0.35;
+  }
+  .blob1 { width: 500px; height: 500px; background: #FFD1DC; top: -100px; left: -150px; animation: floatBlob 12s ease-in-out infinite; }
+  .blob2 { width: 400px; height: 400px; background: #FADADD; top: 40%; right: -100px; animation: floatBlob 15s ease-in-out infinite reverse; }
+  .blob3 { width: 300px; height: 300px; background: #FFB6C1; bottom: 10%; left: 20%; animation: floatBlob 10s ease-in-out infinite 3s; }
+  @keyframes floatBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.97); }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,240,244,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212,83,126,0.15);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    background: linear-gradient(135deg, #C75B87, #F4A7BB);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .logo span { font-style: italic; }
+  nav ul { display: flex; gap: 2rem; list-style: none; }
+  nav a {
+    text-decoration: none; font-size: 0.85rem; font-weight: 700;
+    color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--deep-rose); }
+  .nav-cta {
+    background: linear-gradient(135deg, #C75B87, #E8829A);
+    color: white !important; padding: 8px 20px; border-radius: 50px;
+  }
+  .nav-cta:hover { opacity: 0.9; color: white !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 22px; height: 2px; background: var(--deep-rose); border-radius: 2px; display: block; transition: 0.3s; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 2rem 4rem;
+    text-align: center;
+  }
+  .hero-inner { max-width: 800px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212,83,126,0.12); color: var(--deep-rose);
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 6px 18px; border-radius: 50px;
+    border: 1px solid rgba(212,83,126,0.25); margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1.05; font-weight: 700;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+  .hero-title em { font-style: italic; color: var(--deep-rose); }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--muted); line-height: 1.7;
+    max-width: 560px; margin: 0 auto 2.5rem;
+    animation: fadeUp 0.8s ease 0.3s both;
+    font-weight: 600;
+  }
+  .hero-sub strong { color: var(--deep-rose); }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.45s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #C75B87, #E8829A);
+    color: white; border: none; padding: 14px 32px; border-radius: 50px;
+    font-size: 1rem; font-weight: 800; cursor: pointer; letter-spacing: 0.3px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(199,91,135,0.35); text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(199,91,135,0.45); }
+  .btn-ghost {
+    background: transparent; color: var(--deep-rose);
+    border: 2px solid rgba(199,91,135,0.4); padding: 12px 28px;
+    border-radius: 50px; font-size: 1rem; font-weight: 800; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { background: rgba(199,91,135,0.08); }
+  .hero-floaties {
+    margin-top: 3rem; display: flex; gap: 2rem; justify-content: center;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .floaty {
+    font-size: 2.5rem; animation: floatIcon 4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(199,91,135,0.3));
+  }
+  .floaty:nth-child(2) { animation-delay: 1s; }
+  .floaty:nth-child(3) { animation-delay: 2s; }
+  .floaty:nth-child(4) { animation-delay: 0.5s; }
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-stat-row {
+    display: flex; gap: 2rem; justify-content: center; margin-top: 3.5rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.75s both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--deep-rose);
+    display: block;
+  }
+  .hero-stat .label { font-size: 0.8rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION STYLES */
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--deep-rose); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+    line-height: 1.15; margin-bottom: 1.25rem;
+  }
+  .section-title em { font-style: italic; color: var(--deep-rose); }
+  .section-sub { font-size: 1.05rem; color: var(--muted); font-weight: 600; max-width: 560px; line-height: 1.7; }
+  .text-center { text-align: center; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--deep-rose));
+    border-radius: 3px; margin-bottom: 1.5rem;
+  }
+  .text-center .divider { margin: 0 auto 1.5rem; }
+
+  /* FOUNDERS */
+  #vibe { background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%); }
+  .founders-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; margin-top: 3rem;
+  }
+  .founder-card {
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(16px);
+    border: 1px solid rgba(212,83,126,0.18); border-radius: 24px;
+    padding: 2rem; text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .founder-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--rose), var(--deep-rose));
+    border-radius: 24px 24px 0 0;
+  }
+  .founder-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(199,91,135,0.18); }
+  .founder-avatar {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--rose));
+    margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem;
+    border: 4px solid white;
+    box-shadow: 0 4px 20px rgba(199,91,135,0.25);
+    overflow: hidden;
+  }
+  .founder-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .founder-badge {
+    display: inline-block;
+    background: rgba(212,83,126,0.1); color: var(--deep-rose);
+    font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 50px;
+    border: 1px solid rgba(212,83,126,0.2); margin-bottom: 0.75rem; letter-spacing: 0.5px;
+  }
+  .founder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700; margin-bottom: 0.25rem;
+  }
+  .founder-title {
+    font-size: 0.82rem; font-weight: 800; color: var(--deep-rose);
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1rem;
+  }
+  .founder-desc {
+    font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 600;
+  }
+  .founder-equity {
+    display: inline-block; margin-top: 1.25rem;
+    background: linear-gradient(135deg, #C75B87, #E8829A);
+    color: white; font-size: 0.78rem; font-weight: 800;
+    padding: 5px 14px; border-radius: 50px; letter-spacing: 0.5px;
+  }
+
+  /* SUCCESS STORY */
+  #stories { background: var(--blush); }
+  .story-card {
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
+    border: 1px solid rgba(212,83,126,0.2); border-radius: 28px;
+    padding: 3rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    margin-top: 3rem; max-width: 900px;
+    position: relative; overflow: hidden;
+  }
+  .story-card::after {
+    content: '❤️'; font-size: 10rem; opacity: 0.05;
+    position: absolute; right: -1rem; bottom: -2rem;
+    pointer-events: none;
+  }
+  .story-photo {
+    aspect-ratio: 1; border-radius: 20px;
+    background: linear-gradient(135deg, var(--pink), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; border: 4px solid white;
+    box-shadow: 0 8px 40px rgba(199,91,135,0.2);
+    overflow: hidden;
+  }
+  .story-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+  .story-tag {
+    display: inline-block;
+    background: rgba(212,83,126,0.1); color: var(--deep-rose);
+    font-size: 0.75rem; font-weight: 800; padding: 5px 14px; border-radius: 50px;
+    border: 1px solid rgba(212,83,126,0.2); margin-bottom: 1rem; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .story-names {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .story-date { font-size: 0.85rem; color: var(--muted); font-weight: 700; margin-bottom: 1.5rem; }
+  .story-quote {
+    font-style: italic; font-size: 1.05rem; color: var(--muted); line-height: 1.8;
+    border-left: 3px solid var(--rose); padding-left: 1.25rem; font-weight: 600;
+  }
+  .story-headline {
+    font-size: 1.15rem; font-weight: 800; color: var(--deep-rose); margin-bottom: 0.5rem;
+  }
+
+  /* PACKAGES */
+  #packages { background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%); }
+  .packages-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .pkg-card {
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
+    border: 1px solid rgba(212,83,126,0.15); border-radius: 24px;
+    padding: 2rem; text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s; position: relative;
+  }
+  .pkg-card.featured {
+    border-color: var(--deep-rose); border-width: 2px;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(199,91,135,0.22);
+  }
+  .pkg-card:hover:not(.featured) { transform: translateY(-6px); box-shadow: 0 16px 50px rgba(199,91,135,0.15); }
+  .pkg-popular {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, #C75B87, #E8829A);
+    color: white; font-size: 0.72rem; font-weight: 800;
+    padding: 5px 18px; border-radius: 50px; white-space: nowrap; letter-spacing: 0.5px;
+  }
+  .pkg-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .pkg-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;
+  }
+  .pkg-subtitle { font-size: 0.82rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1.5rem; }
+  .pkg-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 700; color: var(--deep-rose); line-height: 1;
+  }
+  .pkg-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.6rem; display: inline-block; }
+  .pkg-price span { font-size: 0.9rem; color: var(--muted); font-family: 'Nunito', sans-serif; font-weight: 600; }
+  .pkg-delivery { font-size: 0.85rem; color: var(--muted); font-weight: 700; margin: 0.75rem 0 1.5rem; }
+  .pkg-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .pkg-features li {
+    font-size: 0.9rem; font-weight: 600; color: var(--muted); padding: 6px 0;
+    border-bottom: 1px dashed rgba(212,83,126,0.15); display: flex; align-items: center; gap: 8px;
+  }
+  .pkg-features li:last-child { border-bottom: none; }
+  .pkg-features li::before { content: '✦'; color: var(--rose); font-size: 0.7rem; flex-shrink: 0; }
+  .pkg-cta {
+    display: block; width: 100%; padding: 12px; border-radius: 50px;
+    font-weight: 800; font-size: 0.95rem; cursor: pointer;
+    transition: all 0.2s; border: 2px solid var(--deep-rose);
+    text-decoration: none; text-align: center;
+  }
+  .pkg-cta.filled {
+    background: linear-gradient(135deg, #C75B87, #E8829A); color: white; border-color: transparent;
+    box-shadow: 0 6px 24px rgba(199,91,135,0.3);
+  }
+  .pkg-cta.filled:hover { box-shadow: 0 10px 36px rgba(199,91,135,0.45); transform: translateY(-1px); }
+  .pkg-cta.outline { color: var(--deep-rose); background: transparent; }
+  .pkg-cta.outline:hover { background: rgba(199,91,135,0.08); }
+  .pkg-cta.ghost { color: var(--muted); border-color: rgba(212,83,126,0.2); font-style: italic; }
+
+  /* CONTACT */
+  #contact { background: var(--blush); }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    margin-top: 3rem;
+  }
+  .contact-info { }
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--pink), var(--rose));
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  }
+  .contact-label { font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact-value { font-size: 1rem; font-weight: 700; color: var(--text); margin-top: 2px; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.82rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-input, .form-textarea {
+    padding: 12px 16px; border-radius: 14px; font-size: 0.95rem; font-family: 'Nunito', sans-serif;
+    border: 1.5px solid rgba(212,83,126,0.2); background: rgba(255,255,255,0.8);
+    outline: none; transition: border-color 0.2s; font-weight: 600; color: var(--text);
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--rose); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    background: linear-gradient(135deg, #C75B87, #E8829A); color: white;
+    border: none; padding: 14px; border-radius: 50px; font-size: 1rem; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif;
+    box-shadow: 0 6px 24px rgba(199,91,135,0.3); letter-spacing: 0.3px;
+  }
+  .form-submit:hover { box-shadow: 0 10px 36px rgba(199,91,135,0.45); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    background: var(--text); color: rgba(255,255,255,0.7);
+    padding: 3rem 2rem;
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: white; letter-spacing: -0.5px;
+  }
+  .footer-logo em { color: var(--rose); }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; font-weight: 700; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 2rem; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.85rem; font-weight: 600; }
+  .footer-copy span { color: var(--rose); }
+  .visitor-counter {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 8px 16px; font-family: monospace;
+    font-size: 0.9rem; color: var(--rose); letter-spacing: 2px; font-weight: 700;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    nav ul.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: rgba(255,240,244,0.97); backdrop-filter: blur(20px);
+      padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid rgba(212,83,126,0.15);
+    }
+    .story-card { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+<div class="bg-blob blob3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Mama<em>mony</em> 💍</div>
+  <ul id="nav-menu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#vibe">Our Vibe</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#stories">Success Stories</a></li>
+    <li><a href="#contact" class="nav-cta">Stop Being Lonely</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('nav-menu').classList.toggle('open')" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-badge">Est. April 2026 &nbsp;✦&nbsp; India's Pookiest Matchmakers</div>
+    <h1 class="hero-title">
+      Because Your Mom's Choices Were<br><em>Questionable</em>.<br>And Yours Are Worse.
+    </h1>
+    <p class="hero-sub">
+      Trust the Pookies. We've already matched <strong>1 couple</strong> and we are <em>very proud of ourselves.</em> You're next.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Stop Being Lonely →</a>
+      <a href="#packages" class="btn-ghost">View Packages</a>
+    </div>
+    <div class="hero-floaties">
+      <span class="floaty">💕</span>
+      <span class="floaty">🧸</span>
+      <span class="floaty">💍</span>
+      <span class="floaty">🌸</span>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <span class="num">1</span>
+        <span class="label">Couple Matched</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">0</span>
+        <span class="label">Divorces (so far)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">3</span>
+        <span class="label">Chaos Makers</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">∞</span>
+        <span class="label">Love to Give</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section id="vibe">
+  <div class="section-wrap">
+    <div class="text-center">
+      <p class="section-label reveal">Meet the Team</p>
+      <div class="divider reveal"></div>
+      <h2 class="section-title reveal">Meet the <em>Chaos Makers</em></h2>
+      <p class="section-sub reveal">Three friends. One terrible idea. And somehow it's working.</p>
+    </div>
+
+    <div class="founders-grid">
+      <!-- Swethaa -->
+      <div class="founder-card reveal reveal-delay-1">
+        <div class="founder-avatar">👩</div>
+        <div class="founder-badge">33.3% Owner &nbsp;✦&nbsp; The Siren</div>
+        <h3 class="founder-name">U Swethaa Sree</h3>
+        <p class="founder-title">Chief 'Girl-Talk' Officer (CGO)</p>
+        <p class="founder-desc">The Siren. She whispers to the girls, convinces them to join, and manipulates the strings of fate until they're completely smitten. Nobody says no to Swethaa.</p>
+        <span class="founder-equity">🏆 The Chaos Starter</span>
+      </div>
+
+      <!-- Khanishkar -->
+      <div class="founder-card reveal reveal-delay-2">
+        <div class="founder-avatar">👨</div>
+        <div class="founder-badge">33.3% Owner &nbsp;✦&nbsp; The Lad-Whisperer</div>
+        <h3 class="founder-name">S Khanishkar</h3>
+        <p class="founder-title">Director of Bro-mance & Rizz (DBR)</p>
+        <p class="founder-desc">The Lad-Whisperer. He polishes the boys, fixes their bios, and teaches them how to not be "dry" texters. His consultation fee is paid in chai.</p>
+        <span class="founder-equity">💅 The Rizz Coach</span>
+      </div>
+
+      <!-- Lohith -->
+      <div class="founder-card reveal reveal-delay-3">
+        <div class="founder-avatar">🤓</div>
+        <div class="founder-badge">33.3% Owner &nbsp;✦&nbsp; The Nerd</div>
+        <h3 class="founder-name">K Lohith Chandran</h3>
+        <p class="founder-title">Supreme Architect of the Matrix (SAM)</p>
+        <p class="founder-desc">The Nerd in the Basement. He builds the site, manages the database of broken hearts, and ensures the 'Love Algorithm' doesn't crash. It has only crashed twice.</p>
+        <span class="founder-equity">💻 The Nerd in the Basement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section id="stories">
+  <div class="section-wrap">
+    <div>
+      <p class="section-label reveal">Success Stories</p>
+      <div class="divider reveal"></div>
+      <h2 class="section-title reveal">Our First <em>Victim</em>—<br>Uh, We Mean, Success Story!</h2>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-photo">
+        <img src="assets/images/success_stories/mahin_neharika.jpg" alt="Mahin and Neharika" onerror="this.parentElement.innerHTML='💑';">
+      </div>
+      <div class="story-content">
+        <span class="story-tag">✦ First Match ✦ 08 April 2026</span>
+        <p class="story-headline">Our Greatest Achievement</p>
+        <h3 class="story-names">Mahin ❤️ Neharika</h3>
+        <p class="story-date">📅 Matched Since: 08/04/2026 &nbsp;|&nbsp; Day 1 of Forever</p>
+        <blockquote class="story-quote">
+          "They said it wouldn't work. We said, 'Hold our pink lemonade.' Look at them now!"
+        </blockquote>
+        <p style="margin-top: 1.25rem; font-size: 0.9rem; color: var(--muted); font-weight: 600;">
+          Two hearts, one matchmaker team, and absolutely zero chill. We cried. We're not ashamed.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="section-wrap">
+    <div class="text-center">
+      <p class="section-label reveal">Packages</p>
+      <div class="divider reveal"></div>
+      <h2 class="section-title reveal">Pick Your <em>Destiny</em></h2>
+      <p class="section-sub reveal">We have options. Your loneliness does not. Choose wisely.</p>
+    </div>
+
+    <div class="packages-grid">
+      <!-- Gold -->
+      <div class="pkg-card reveal reveal-delay-1">
+        <div class="pkg-icon">🏆</div>
+        <h3 class="pkg-name">Gold</h3>
+        <p class="pkg-subtitle">The Slow Burn</p>
+        <div class="pkg-price"><sup>₹</sup>1999<span>/match</span></div>
+        <p class="pkg-delivery">⏱️ Delivered in 7 Days</p>
+        <ul class="pkg-features">
+          <li>We find you a match while you question your life choices</li>
+          <li>Profile audit (we will judge you, kindly)</li>
+          <li>One handpicked introduction</li>
+          <li>Post-match moral support</li>
+        </ul>
+        <a href="#contact" class="pkg-cta outline">I'm Patient-ish</a>
+      </div>
+
+      <!-- Platinum FEATURED -->
+      <div class="pkg-card featured reveal reveal-delay-2">
+        <div class="pkg-popular">💎 Most Popular</div>
+        <div class="pkg-icon">💎</div>
+        <h3 class="pkg-name">Platinum</h3>
+        <p class="pkg-subtitle">The Fast Track</p>
+        <div class="pkg-price"><sup>₹</sup>3999<span>/match</span></div>
+        <p class="pkg-delivery">⚡ Delivered in 3 Days</p>
+        <ul class="pkg-features">
+          <li>Speed-dating energy without the awkward silence</li>
+          <li>Deep-dive personality screening</li>
+          <li>Three curated introductions</li>
+          <li>Dedicated Pookie advisor (Swethaa personally)</li>
+          <li>Emergency dry-texter intervention</li>
+        </ul>
+        <a href="#contact" class="pkg-cta filled">Yes, I Deserve This →</a>
+      </div>
+
+      <!-- Diamond -->
+      <div class="pkg-card reveal reveal-delay-3">
+        <div class="pkg-icon">🦄</div>
+        <h3 class="pkg-name">Diamond</h3>
+        <p class="pkg-subtitle">The Royal Wedding</p>
+        <div class="pkg-price" style="font-size: 2rem; padding: 0.4rem 0;">Coming Soon</div>
+        <p class="pkg-delivery">🌟 Inquire Within</p>
+        <ul class="pkg-features">
+          <li>So exclusive, we might actually attend the wedding</li>
+          <li>Full life audit and vibe check</li>
+          <li>We match you OR we cry trying</li>
+          <li>Free blessings from the Trinity</li>
+        </ul>
+        <a href="#contact" class="pkg-cta ghost">Notify Me When Ready</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="text-center">
+      <p class="section-label reveal">Contact Us</p>
+      <div class="divider reveal"></div>
+      <h2 class="section-title reveal">Ready to <em>Stop Being Lonely?</em></h2>
+      <p class="section-sub reveal">Fill this out. We'll get back to you faster than your ex.</p>
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div>
+            <p class="contact-label">Location</p>
+            <p class="contact-value">The Pink House, Love Lane</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📧</div>
+          <div>
+            <p class="contact-label">Email</p>
+            <p class="contact-value">helpme@mamamony.com</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div>
+            <p class="contact-label">Phone</p>
+            <p class="contact-value">1-800-POOKIE-HELP</p>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212,83,126,0.07); border-radius: 18px; border: 1px solid rgba(212,83,126,0.15);">
+          <p style="font-size: 0.88rem; color: var(--muted); font-weight: 600; line-height: 1.7; font-style: italic;">
+            ⚠️ <strong style="color: var(--deep-rose);">Disclaimer:</strong> We are not responsible for: butterflies in your stomach, reckless smiling at your phone, or the sudden urge to tell everyone you've met someone. That's on you. And also us. Mostly us.
+          </p>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="The Lonely Pookie" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="youremail@sadlyalone.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone (Optional, but recommended)</label>
+          <input class="form-input" type="tel" placeholder="+91 99999 00000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Ideal Match (Be Specific, We Dare You)</label>
+          <textarea class="form-textarea" placeholder="Must love memes, not send 'k' as a reply, and have a good vibe..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Stop Being Lonely 💕</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo">Mama<em>mony</em> 💍</div>
+      <nav class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#vibe">Our Vibe</a>
+        <a href="#packages">Packages</a>
+        <a href="#stories">Success Stories</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Mamamony. Made with love and chaos by <span>the Trinity</span>. All hearts reserved.</p>
+      <div class="visitor-counter" id="visitor-counter">[ 000,420 ] Pookies visited today</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // VISITOR COUNTER animation
+  let count = 420;
+  const counter = document.getElementById('visitor-counter');
+  setInterval(() => {
+    count += Math.floor(Math.random() * 3);
+    const formatted = count.toLocaleString('en-US').padStart(7, '0');
+    counter.textContent = `[ ${formatted} ] Pookies visited today`;
+  }, 5000);
+
+  // FORM SUBMIT
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '💌 Received! A Pookie Will Contact You.';
+    btn.style.opacity = '0.75';
+    btn.disabled = true;
+  }
+
+  // CLOSE NAV ON LINK CLICK (mobile)
+  document.querySelectorAll('#nav-menu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
